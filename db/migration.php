@@ -142,6 +142,12 @@ class Migration {
           updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
         );
     ");
+    $count = $mysqli->query('SELECT count(*) FROM users')->fetch_assoc();
+    if($count['count(*)'] == 0){
+      $mysqli->query("
+        INSERT INTO users(name,username,password,created_by) VALUES ('developer','developer','123',1);
+      ");
+    }
   }
 }
 
