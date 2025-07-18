@@ -8,11 +8,11 @@
       <form action="/auth/login_form" method="POST">
         <div class="mb-3">
           <label for="username">Username</label>
-          <input type="text" name="username" id="username" class="form-control form-control-lg" required>
+          <input type="text" name="username" id="username" class="form-control form-control-lg" value="developer" required>
         </div>
          <div class="mb-3">
           <label for="password">Password</label>
-          <input type="text" name="password" id="password" class="form-control form-control-lg" required>
+          <input type="password" name="password" id="password" class="form-control form-control-lg" value="123" required>
         </div>
         <button type="submit" class="btn btn-primary w-100">Login</button>
       </form>

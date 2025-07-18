@@ -8,7 +8,7 @@ use Core\Database;
 class BaseModel
 {
     public $tbl = null;
-    protected $db;
+    public $db;
     public function __construct($tbl){
       $this->db = Database::getInstance()->getConnection();
       $this->tbl = $tbl;
@@ -16,6 +16,8 @@ class BaseModel
 
     public function all()
     {
+        // need to check : prevent sql injection
+
         $result = $this->db->query("SELECT * FROM {$this->tbl}");
 
         $users = [];
@@ -28,6 +30,7 @@ class BaseModel
 
     public function findById($id)
     {
+        // need to check : prevent sql injection
         $result = $this->db->query("SELECT * FROM {$this->tbl} WHERE id = $id");
 
         return $result->fetch_assoc(); 
@@ -35,31 +38,49 @@ class BaseModel
 
     public function create($data){
       $keys = implode(',', array_keys($data));
-      $values = implode(',', array_values($data));
-      $this->db->query("INSERT INTO {$this->tbl} ($keys) VALUES ($values)");
+      $questionMark = implode(',', array_fill(0, count($data), '?'));
+      // prevent sql injection
+      $this->db->execute_query("INSERT INTO {$this->tbl} ($keys) VALUES ($questionMark)", array_values($data));
       return $this->db->insert_id;
     }
 
     public function findFirst($data){
       $stm = "SELECT * FROM {$this->tbl} WHERE 1 = 1";
+      $keyValue = [];
       foreach($data as $k => $value){
-        $stm .= " AND $k = '$value'";
+        // $stm .= " AND $k = ?";
+        $stm .= " AND $k = ?";
+        $keyValue[] = $value;
       }
 
       $stm .= " LIMIT 1";
-      $query = $this->db->query($stm)->fetch_assoc();
+
+      // $query = $this->db->query($stm)->fetch_assoc();
+
+      // prevent sql injection
+      $query = $this->db->execute_query($stm, $keyValue)->fetch_assoc();
 
       return $query ? (object) $query : null;
     }
 
     public function update($id, $data){
-      $keys = implode(',', array_keys($data));
-      $values = implode(',', array_values($data));
-      $this->db->query("UPDATE {$this->tbl} SET $keys = $values WHERE id = $id");
+      $stm = "UPDATE {$this->tbl} SET ";
+      foreach ($data as $key => $value) {
+        $stm .= " $key = '$value'";
+        if($key != array_key_last($data)){
+          $stm .= ",";
+        }
+      }
+
+      $stm .= " WHERE id = $id";
+      // need to check : prevent sql injection
+      $this->db->query($stm);
       return true;
     }
 
     public function delete($id){
+
+      // need to check : prevent sql injection
       $this->db->query("DELETE FROM {$this->tbl} WHERE id = $id");
       return true;
     }
@@ -73,7 +94,7 @@ class BaseModel
         INNER JOIN {$foreign_table}
         ON {$foreign_key} = {$primary_key};
       ";
-
+      // need to check : prevent sql injection
       $fetch = $this->db->query($query);
 
       return $fetch->fetch_assoc();
