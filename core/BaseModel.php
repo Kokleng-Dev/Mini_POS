@@ -87,16 +87,23 @@ class BaseModel
 
     public function belongsTo($model,$primary_key,$foreign_key, $select){
       $main_table = $this->tbl;
-      $foreign_table = $model.tbl;
-
+      $foreign_model = new $model();
+      $foreign_table = $foreign_model->tbl;
       $query = "
         SELECT {$select} FROM {$main_table} 
         INNER JOIN {$foreign_table}
-        ON {$foreign_key} = {$primary_key};
+        ON {$main_table}.{$foreign_key} = {$foreign_table}.{$primary_key};
       ";
+
+
       // need to check : prevent sql injection
       $fetch = $this->db->query($query);
+      $res = [];
 
-      return $fetch->fetch_assoc();
+      while($row = $fetch->fetch_assoc()){
+        $res[] = $row;
+      }
+
+      return $res;
     }
 }

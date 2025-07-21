@@ -15,6 +15,9 @@
         <li class="nav-item">
           <a class="nav-link <?php echo $_SERVER['REQUEST_URI'] == '/category' ? 'text-primary' : ''; ?>" href="/category">Category</a>
         </li>
+          <li class="nav-item">
+          <a class="nav-link <?php echo $_SERVER['REQUEST_URI'] == '/customer' ? 'text-primary' : ''; ?>" href="/customer">Customer</a>
+        </li>
          <li class="nav-item">
           <a class="nav-link <?php echo $_SERVER['REQUEST_URI'] == '/order' ? 'text-primary' : ''; ?>" href="/order">Order</a>
         </li>

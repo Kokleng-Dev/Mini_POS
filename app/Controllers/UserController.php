@@ -13,12 +13,12 @@ class UserController extends BaseController
     {
         $users = new User();
         $query = $users->db->query("SELECT * FROM users WHERE active = 1")->fetch_all(MYSQLI_ASSOC);
-        $this->render('users/index',['users' => $query]);
+        $this->render('users/index',['users' => $query],'User');
     }
 
     public function create()
     {
-        $this->render('users/create');
+        $this->render('users/create',[],'Create User');
     }
     public function store()
     {
@@ -46,7 +46,7 @@ class UserController extends BaseController
         $id = $_GET['id'];
         $user = new User();
         $data = $user->findById($id);
-        $this->render('users/edit',['user' => $data]);
+        $this->render('users/edit',['user' => $data],'Edit User');
     }
 
     public function update()

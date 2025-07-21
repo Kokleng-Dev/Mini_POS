@@ -50,6 +50,7 @@ class Migration {
           id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
           product_category_id INT NOT NULL,
           name VARCHAR(255),
+          price FLOAT(5,2) NOT NULL DEFAULT 0,
           description TEXT NULL,
           photo TEXT NULL,
           qty INT NOT NULL DEFAULT 0,
@@ -92,6 +93,7 @@ class Migration {
     $mysqli->query("
          CREATE TABLE IF NOT EXISTS purchase_orders(
           id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+          customer_id INT NOT NULL,
           purchase_date date NOT NULL,
           code VARCHAR(255),
           total float(5,2) NOT NULL DEFAULT 0,
