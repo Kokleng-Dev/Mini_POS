@@ -26,6 +26,7 @@
             <td><?= $order['customer_name'];?></td>
             <td><?= $order['total'];?></td>
             <td>
+              <a href="/order/invoice?id=<?= $order['id']; ?>" class="btn btn-warning btn-sm"><i class="fa fa-print"></i> Invoice</a>
               <a href="/order/edit?id=<?= $order['id']; ?>" class="btn btn-success btn-sm"><i class="fa fa-pen"></i> Edit</a>
               <a href="/order/delete?id=<?= $order['id']; ?>" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Delete</a>
             </td>

@@ -106,4 +106,26 @@ class BaseModel
 
       return $res;
     }
+
+    public function belongsToWhere($model, $primary_key, $foreign_key, $select, $where_column,$where_value){
+      $main_table = $this->tbl;
+      $foreign_model = new $model();
+      $foreign_table = $foreign_model->tbl;
+      $query = "
+        SELECT {$select} FROM {$main_table} 
+        INNER JOIN {$foreign_table}
+        ON {$main_table}.{$foreign_key} = {$foreign_table}.{$primary_key}
+        WHERE {$main_table}.{$where_column} = ?
+      ";
+
+      // need to check : prevent sql injection
+      $fetch = $this->db->execute_query($query, [$where_value]);
+      $res = [];
+
+      while($row = $fetch->fetch_assoc()){
+        $res[] = $row;
+      }
+
+      return $res;
+    }
 }

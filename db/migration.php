@@ -83,6 +83,7 @@ class Migration {
           id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
           order_id INT NOT NULL,
           product_id INT NOT NULL,
+          price FLOAT(5,2) NOT NULL DEFAULT 0,
           quantity INT NOT NULL,
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
           updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP

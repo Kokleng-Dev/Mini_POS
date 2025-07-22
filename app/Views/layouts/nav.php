@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tertiary d-print-none">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Mini POS</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,7 +31,7 @@
     </div>
   </div>
 </nav>
-<div class="bg-primary-subtle text-end mb-3">
+<div class="bg-primary-subtle text-end mb-3 d-print-none">
   <small class="p-2"><i class="fa-regular fa-user"></i> <?php echo $_SESSION['auth']->name;?></small>
 </div>
 

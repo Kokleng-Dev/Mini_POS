@@ -1,0 +1,12 @@
+@media print {
+  .d-print-none {
+    display: none !important;
+  }
+  .container {
+    max-width: 100% !important;
+  }
+
+  @page {
+    margin: 0.5cm;
+  }
+}

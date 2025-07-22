@@ -47,6 +47,11 @@ $routes = [
     '/order' => ['method' => 'GET','controller' => 'OrderController', 'action' => 'index', 'middleware' => 'AuthMiddleware'],
     '/order/create' => ['method' => 'GET','controller' => 'OrderController', 'action' => 'create', 'middleware' => 'AuthMiddleware'],
 
+    '/order/store' => ['method' => 'POST','controller' => 'OrderController', 'action' => 'store', 'middleware' => 'AuthMiddleware'],
+
+    '/order/invoice' => ['method' => 'GET','controller' => 'OrderController', 'action' => 'invoice', 'middleware' => 'AuthMiddleware'],
+
+    '/order/delete' => ['method' => 'GET','controller' => 'OrderController', 'action' => 'delete', 'middleware' => 'AuthMiddleware'],
 ];
 
 
